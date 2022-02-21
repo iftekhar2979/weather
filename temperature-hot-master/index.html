@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input type="text" id="input-btn" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-danger" id="submit-btn">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="name">Dhaka</h1>
+            <h3><span id="temp">38.06</span>&deg;C</h3>
+            <h1 class="lead">Clouds</h1>
+        </div>
+    </div>
+    <script>
+
+        const submitBtn=document.getElementById("submit-btn");
+        submitBtn.addEventListener("click",function(){
+            const inputBtn=document.getElementById("input-btn").value
+            fetch('https://api.openweathermap.org/data/2.5/weather?q="+inputBtn+"&appid=cc73de65d6bedaddaf8ad00f4d15e5a4')
+            .then(res=>res.json())
+            .then(data=>{
+                console.log(data)
+                const name=data.name;
+                const temp=data.main.temp
+                const temperature=Math.floor(temp-273);
+                console.log(Math.floor(temp-273))
+                console.log(name);
+            const description=data.weather[0].main
+            console.log(description)
+
+                document.getElementById("name").innerText=name
+                document.getElementById("temp").innerText=temperature
+                document.querySelector(".lead").innerText=description
+            })
+        })
+        
+//         const searchBtn=document.getElementById("search-btn")
+// searchBtn.addEventListener("click",function(){
+//     const cityInput=document.getElementById("input-city").value;
+//     fetch("https://api.openweathermap.org/data/2.5/weather?q='+cityInput+'&appid=cc73de65d6bedaddaf8ad00f4d15e5a4")
+//     .then(res=>res.json())
+//     .then(data=>{
+//         console.log(data)
+//     })
+
+
+
+    // fetch("https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid=cc73de65d6bedaddaf8ad00f4d15e5a4")
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             // console.log(data.name)
+    //             // console.log(data.weather[0].description)
+    //             // const temp = data.main.temp
+
+    //             // // const des=data.
+    //             // const inDeg = temp - 273.15
+    //             // console.log(Math.round(inDeg))
+    //         })
+    
+// })
+
+      
+    </script>
+</body>
+
+</html>

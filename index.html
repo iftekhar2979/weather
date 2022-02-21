@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calling From Api</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        div h3{
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+        <h3>Name : <h3 id="show"></h3>
+        </h3>
+        </div>
+        <div>
+        <h3>Gender : <h3 id="gender"></h3>
+        </h3>
+        </div>
+        <div>
+        <h3>Location : <h3 id="location"></h3>
+        </h3>
+    </div>
+    </div>
+    <script>
+        fetch('https://randomuser.me/api')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                const result = data.results[0];
+                const gender = result.gender;
+                const location = result.location;
+                const name = result.name
+                const fullName = ` ${name.title} ${name.first} ${name.last}`
+                const fullLocation = ` ${location.postcode}, ${location.city} , ${location.state}, ${location.country}`
+
+                document.getElementById("show").innerText = fullName;
+                document.getElementById("gender").innerText = gender;
+                document.getElementById('location').innerText = fullLocation;
+            })
+    </script>
+</body>
+
+</html>
